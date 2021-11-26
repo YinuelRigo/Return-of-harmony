@@ -116,3 +116,5 @@ f) ¿Qué hace que el juego sea "divertido"? Algunos jugadores pueden disfrutar 
 i) fantasía (simulando experiencias que uno no tiene en la vida real) ii) juego de roles (identificación con un personaje) iii) competencia (contra otros jugadores o contra registros previamente establecidos por uno mismo) iv) cooperación (trabajando con otros hacia un objetivo común) v) compasión (proporcionar asistencia o rescatar a otros) vi) descubrimiento (encontrar objetos o explorar un mundo) vii) superar desafíos (como derrotar enemigos o resolver acertijos) viii) colección (incluidos elementos del juego o insignias / trofeos por logros) ix) aspectos sociales (tanto dentro del juego como comunidades que se forman alrededor del juego).
 
 La diversión de este juego radica en el superar los distintos niveles con la mayor puntuación posible (Cada jugador tendrá que hacer un seguimiento de sus propias puntuaciones altas).
+
+![Return of harmony drawio](https://user-images.githubusercontent.com/89157854/143661695-ce15dd4a-0faa-48f5-b551-49190d653905.png)
