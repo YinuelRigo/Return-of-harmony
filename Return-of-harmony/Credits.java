@@ -4,14 +4,13 @@ public class Credits extends World
 {
     public Credits()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1);
-        PrepareCredits();
+        prepareCredits();
     }
     
-    private void PrepareCredits(){
-        addObject(new BGameTittle(),311,57);
-        addObject(new BCredits(),300,121);
+    private void prepareCredits(){
+        addObject(new SingboardGameTittle(),311,57);
+        addObject(new SingboardCredits(),300,121);
     }
     
     public void act(){
