@@ -8,33 +8,29 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Boss extends Enemy
 {
-    int health = 50;
-    boolean hitProjectile = false;
+    private int health = 20;
+    private boolean hitProjectile = false;
     
-    Level thisGame;
-    /**
-     * Act - do whatever the Boss wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    GifImage BossGif = new GifImage("KS_idle.gif");
     public void act()
     {
+        setImage(BossGif.getCurrentImage());
         hitProjectile();
     }
     
     public void hitProjectile(){
-        Actor playerProyectile = getOneIntersectingObject(PlayerProyectile.class);
+        Actor playerProyectile = getOneIntersectingObject(PlayerProjectile.class);
         
         if(playerProyectile != null && !hitProjectile){
             health --;
             hitProjectile = true;
             getWorld().removeObject(playerProyectile);
-        }else if(!isTouching(PlayerProyectile.class)){
+        }else if(!isTouching(PlayerProjectile.class)){
             hitProjectile = false;
         }
         
         if(health <= 0){
             getWorld().removeObject(this);
-            thisGame.score+=100;
         }
     }
 }

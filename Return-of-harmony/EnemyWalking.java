@@ -7,50 +7,80 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 public class EnemyWalking extends Enemy
-{
-    /**
-     * Act - do whatever the EnemyWalking wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    int speed = -3;
-    int count = 0;
-    int health = 3;
-    boolean hitProjectile = false;
+{ 
+    private int speed = -3;
+    private int count = 0;
+    private int health = 3;
+    private boolean hitProjectile = false;
     
-    Level thisGame;
+    private int direction = 1;
+    
+    private String []images;
+    private int frame = 0;
     
     public void act()
     {
         count++;
         moveAround();
-        
+
         hitProjectile();
     }
     
     public void moveAround(){
-        if(count < 60){
+        if(count <= 60){
             setLocation(getX() + speed, getY());
         }else{
             speed = -speed;
-            getImage().mirrorHorizontally();
+            direction = -direction;
             count = 0;
+        }
+        
+        if(direction == 1){
+            animationLeft();
+        }else{
+            animationRight();
         }
     }
     
-    public void hitProjectile(){
-        Actor playerProyectile = getOneIntersectingObject(PlayerProyectile.class);
+    public void animationRight(){
+        images = new String[]{
+            "images/CH_Walk1R.png",
+            "images/CH_Walk2R.png",
+            "images/CH_Walk3R.png",
+            "images/CH_Walk4R.png",
+            "images/CH_Walk5R.png",
+            "images/CH_Walk6R.png",
+            "images/CH_Walk7R.png",
+            "images/CH_Walk8R.png"
+        };
         
-        if(playerProyectile != null && !hitProjectile){
-            health --;
-            hitProjectile = true;
-            getWorld().removeObject(playerProyectile);
-        }else if(!isTouching(PlayerProyectile.class)){
-            hitProjectile = false;
+        setImage(images[frame/5]);
+            
+        if(frame == 35){
+             frame=0;
         }
+    
+        frame ++;
+    }
+    
+    public void animationLeft(){
+        images = new String[]{
+            "images/CH_Walk1L.png",
+            "images/CH_Walk2L.png",
+            "images/CH_Walk3L.png",
+            "images/CH_Walk4L.png",
+            "images/CH_Walk5L.png",
+            "images/CH_Walk6L.png",
+            "images/CH_Walk7L.png",
+            "images/CH_Walk8L.png"
+        };
         
-        if(health <= 0){
-            getWorld().removeObject(this);
-            thisGame.score+=100;
+        setImage(images[frame/5]);
+            
+        if(frame == 35){
+             frame=0;
         }
+    
+        frame ++;
     }
 }

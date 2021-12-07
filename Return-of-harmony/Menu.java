@@ -9,8 +9,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Menu extends World
 {
     SingboardArrow arrow = new SingboardArrow();
+    
     private int option=0;
-    private static final int menuCount = 20;
+    
+    private static final int MENU_COUNT = 20;
     private int menuTimer;
     
     public Menu()
@@ -36,11 +38,11 @@ public class Menu extends World
         int limitUp = 0, limitDown = 3;
         
         if (Greenfoot.isKeyDown("UP") && menuTimer <= 0) {
-            menuTimer = menuCount;
+            menuTimer = MENU_COUNT;
             option--;
         }
         if (Greenfoot.isKeyDown("DOWN") && menuTimer <= 0) {
-            menuTimer = menuCount;
+            menuTimer = MENU_COUNT;
             option++;
         }
         menuTimer --;

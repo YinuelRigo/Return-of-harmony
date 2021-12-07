@@ -9,31 +9,42 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class Player extends Actor
 {
-    private static final int speed = 3;
+    private static final int SPEED = 3;
     private int vSpeed = 0;
     
     private boolean jumping;
-    private static final int jumpHeight = -15;
+    private static final int JUMP_HEIGHT = -15; 
     
     private int direction = 1;
     
-    private int health = 4;
+    private boolean drawHearths = true;
+    private int health = 3;
+    private static final int INVULNERABILITY = 50;
+    private int healthTimer;
     
-    private static final int shootingCount = 20;
+    private static final int PROJECTILE_RELOADING = 20;
     private int shootingTimer;
     
     private String []images;
     private int frame = 0;
     
-    Level thisGame;
+    private int score = 0;
+    private ScoreManager scoreManager;  
+    
+    Player(ScoreManager scoreManager){
+        this.scoreManager = scoreManager; 
+    }
     
     public void act()
     {
         handleKeys();
         checkFalling();
         pickUpItems();
+        loseHealth();
         fall();
+        playerLife();
         
+        healthTimer--;
         shootingTimer --;
     }
     
@@ -67,33 +78,33 @@ public class Player extends Actor
        int x = getX();
        int y = getY();
        
-       if(Greenfoot.isKeyDown("right")){
+       if(Greenfoot.isKeyDown("right") && getOneObjectAtOffset(SPEED + 10, 0, Ground.class) == null){
            direction = 1;
-           setLocation(x + speed,y);  
+           setLocation(x + SPEED,y);  
            animationRight();
        }
        
-       if(Greenfoot.isKeyDown("left")){
+       if(Greenfoot.isKeyDown("left") && getOneObjectAtOffset(-SPEED - 10, 0, Ground.class) == null){
            direction =  -1;
-           setLocation(x - speed,y);
+           setLocation(x - SPEED,y);
            animationLeft();
        }
        
-       if(Greenfoot.isKeyDown("Z") && jumping == false){
-           vSpeed = jumpHeight; 
+       if(Greenfoot.isKeyDown("Z") && jumping == false && getOneObjectAtOffset(0, SPEED, Ground.class) == null){
+           vSpeed = JUMP_HEIGHT; 
            jumping = true;
            animationJump();
            fall();
        }
        
        if(Greenfoot.isKeyDown("X") && direction == 1 && shootingTimer <= 0){
-           shootingTimer = shootingCount;
-           PleyerProyectileR playerProyectileR = new PleyerProyectileR();
-           getWorld().addObject(playerProyectileR, getX() + 27, getY() - 22);
+           shootingTimer = PROJECTILE_RELOADING;
+           PleyerProjectileRight playerProjectileRight = new PleyerProjectileRight();
+           getWorld().addObject(playerProjectileRight, getX() + 27, getY() - 22);
        }else if(Greenfoot.isKeyDown("X") && direction == -1 && shootingTimer <= 0){
-           shootingTimer = shootingCount;
-           PlayerProyectileL playerProyectileL = new PlayerProyectileL();
-           getWorld().addObject(playerProyectileL, getX() - 27, getY() - 22); 
+           shootingTimer = PROJECTILE_RELOADING;
+           PlayerProjectileLeft playerProjectileLeft = new PlayerProjectileLeft();
+           getWorld().addObject(playerProjectileLeft, getX() - 27, getY() - 22); 
        }
     }
     
@@ -116,28 +127,12 @@ public class Player extends Actor
         };
         
         if(jumping == false){
+            setImage(images[frame/5]);
             
-            if(frame == 0){
-                setImage(images[0]);    
-            }
-            if(frame == 5){
-                setImage(images[1]);    
-            }
-            if(frame == 10){
-                setImage(images[2]);    
-            }
-            if(frame == 15){
-                setImage(images[3]);    
-            }
-            if(frame == 20){
-                setImage(images[4]);    
-            }
             if(frame == 25){
-                setImage(images[5]);
-                frame = 0;
-                return;
+                frame=0;
             }
-        
+    
             frame ++;
         }
     }
@@ -153,62 +148,93 @@ public class Player extends Actor
         };
         
         if(jumping == false){
+            setImage(images[frame/5]);
             
-            if(frame == 0){
-                setImage(images[0]);    
-            }
-            if(frame == 5){
-                setImage(images[1]);    
-            }
-            if(frame == 10){
-                setImage(images[2]);    
-            }
-            if(frame == 15){
-                setImage(images[3]);    
-            }
-            if(frame == 20){
-                setImage(images[4]);    
-            }
             if(frame == 25){
-                setImage(images[5]);
-                frame = 0;
-                return;
+                frame=0;
             }
-        
+    
             frame ++;
         }
     } 
+
     
-    public void pickUpItems(){
-        Actor item = getOneIntersectingObject(Items.class);
-        Actor gem = getOneIntersectingObject(IGem.class);
-        Actor heart = getOneIntersectingObject(ILife.class);
-        Actor element = getOneIntersectingObject(IElement.class);
+    public void pickUpItems(){        
+        Actor item = getOneIntersectingObject(Item.class);
+        Actor gem = getOneIntersectingObject(ItemGem.class);
+        Actor heart = getOneIntersectingObject(ItemLife.class);
+        Actor element = getOneIntersectingObject(ItemElement.class);
+        Actor elementBronze = getOneIntersectingObject(ItemElementBronze.class);
+        Actor elementSilver = getOneIntersectingObject(ItemElementSilver.class);
+        Actor elementGold = getOneIntersectingObject(ItemElementGold.class);
         
         if(item != null){
             getWorld().removeObject(item);
         }
         if(gem != null){
-            thisGame.score+=100;
+            score += 100;
+            World world =  getWorld();
+            scoreManager.updateScore(score);
         }
         if(heart != null){
-            
+            health ++;
         }
         if(element != null){
-            switch(thisGame.currentLevel){
-                case 0:
-                    Greenfoot.setWorld(new Level1());
-                    break;
-                case 1:
-                    Greenfoot.setWorld(new Level2());
-                    break;
-                case 2:
-                    Greenfoot.setWorld(new Level3());
-                    break;
-                case 3:
-                    Greenfoot.setWorld(new Menu());
-                    break;
-            }
+            Greenfoot.setWorld(new Level1());
+        }
+        if(elementBronze != null){
+            Greenfoot.setWorld(new Level2());
+        }
+        if(elementSilver != null){
+            Greenfoot.setWorld(new Level3());
+        }
+        if(elementGold != null){
+            Greenfoot.setWorld(new Menu());
         }
     }
+    
+    public void loseHealth(){
+        Actor enemy = getOneIntersectingObject(Enemy.class);
+        
+        if(enemy != null && healthTimer <= 0){
+            healthTimer = INVULNERABILITY;
+            health --;
+            
+            getWorld().removeObjects(getWorld().getObjects(Health.class));
+            drawHearths = true;
+        }
+        
+        if(health == 0){
+            Greenfoot.setWorld(new Menu());
+        }
+        
+    }
+    
+    public void playerLife(){
+        if(health == 1 && drawHearths == true){   
+            getWorld().addObject(new Health(), 21, 21);
+        } else if(health == 2 && drawHearths == true){   
+            getWorld().addObject(new Health(), 21, 21);
+            getWorld().addObject(new Health(), 51, 21);
+        }else if(health == 3 && drawHearths == true){   
+            getWorld().addObject(new Health(), 21, 21);
+            getWorld().addObject(new Health(), 51, 21);
+            getWorld().addObject(new Health(), 81, 21);
+        } else if(health == 4 && drawHearths == true){   
+            getWorld().addObject(new Health(), 21, 21);
+            getWorld().addObject(new Health(), 51, 21);
+            getWorld().addObject(new Health(), 81, 21);
+            getWorld().addObject(new Health(), 111, 21);
+        }else if(health == 5 && drawHearths == true){   
+            getWorld().addObject(new Health(), 21, 21);
+            getWorld().addObject(new Health(), 51, 21);
+            getWorld().addObject(new Health(), 81, 21);
+            getWorld().addObject(new Health(), 111, 21);
+            getWorld().addObject(new Health(), 141, 21);
+        }else if(health <=6 && drawHearths == true){
+            health = 5; 
+        }
+        drawHearths = false;
+    }
+    
 }

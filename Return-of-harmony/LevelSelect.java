@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class LevelSelect extends World
 {
     private int option=0;
+    
     SingboardArrow arrow = new SingboardArrow();
     /**
      * Constructor for objects of class LevelSelect.

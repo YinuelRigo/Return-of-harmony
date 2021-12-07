@@ -1,28 +1,16 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; 
 
-/**
- * Write a description of class Level here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Level extends World
+public class Level extends World implements ScoreManager
 {
-    public static int score = 0;
-    public static int currentLevel = 0;
-    /**
-     * Constructor for objects of class Level.
-     * 
-     */
+    public int level = 1;
+    
     public Level()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1); 
+        updateScore(0);
     }
     
     public void act(){
-        showText("Score: " + score,500,25);
-        showText("Level: " + currentLevel,300,25);
         closeGame();
     }
     
@@ -30,5 +18,9 @@ public class Level extends World
         if (Greenfoot.isKeyDown("ESCAPE")){
             Greenfoot.stop();
         }
+    }
+    
+    public void updateScore(int score){
+        showText("Score: " + score,500,25);
     }
 }
