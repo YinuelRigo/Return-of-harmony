@@ -8,13 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Menu extends World
 {
-    SingboardArrow arrow = new SingboardArrow();
-    
     private int option=0;
     
     private static final int MENU_COUNT = 20;
     private int menuTimer;
     
+    SingboardArrow arrow = new SingboardArrow();
+
     public Menu()
     {    
         super(600, 400, 1); 

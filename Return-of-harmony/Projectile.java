@@ -16,8 +16,7 @@ public class Projectile extends Actor
      */
     public void act()
     {
-        move(-speed);
-        removeProjectile();
+        
     }
     
     public void removeProjectile(){

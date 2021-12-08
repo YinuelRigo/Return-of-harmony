@@ -31,6 +31,8 @@ public class Player extends Actor
     private int score = 0;
     private ScoreManager scoreManager;  
     
+    private boolean hitProjectile = false;
+    
     Player(ScoreManager scoreManager){
         this.scoreManager = scoreManager; 
     }
@@ -99,12 +101,10 @@ public class Player extends Actor
        
        if(Greenfoot.isKeyDown("X") && direction == 1 && shootingTimer <= 0){
            shootingTimer = PROJECTILE_RELOADING;
-           PleyerProjectileRight playerProjectileRight = new PleyerProjectileRight();
-           getWorld().addObject(playerProjectileRight, getX() + 27, getY() - 22);
+           getWorld().addObject(new PleyerProjectileRight(), getX() + 27, getY() - 22);
        }else if(Greenfoot.isKeyDown("X") && direction == -1 && shootingTimer <= 0){
            shootingTimer = PROJECTILE_RELOADING;
-           PlayerProjectileLeft playerProjectileLeft = new PlayerProjectileLeft();
-           getWorld().addObject(playerProjectileLeft, getX() - 27, getY() - 22); 
+           getWorld().addObject(new PlayerProjectileLeft(), getX() - 27, getY() - 22); 
        }
     }
     
@@ -178,6 +178,7 @@ public class Player extends Actor
         }
         if(heart != null){
             health ++;
+            drawHearths = true;
         }
         if(element != null){
             Greenfoot.setWorld(new Level1());
@@ -195,8 +196,10 @@ public class Player extends Actor
     
     public void loseHealth(){
         Actor enemy = getOneIntersectingObject(Enemy.class);
+        Actor enemyShot = getOneIntersectingObject(EnemyProjectile.class);
+        Actor bossShot = getOneIntersectingObject(BossProjectile.class);
         
-        if(enemy != null && healthTimer <= 0){
+        if(enemy != null && healthTimer <= 0 || enemyShot != null && healthTimer <= 0 || bossShot != null && healthTimer <= 0){
             healthTimer = INVULNERABILITY;
             health --;
             
@@ -208,6 +211,12 @@ public class Player extends Actor
             Greenfoot.setWorld(new Menu());
         }
         
+        if(enemyShot != null && !hitProjectile || bossShot != null && !hitProjectile){
+            hitProjectile = true;
+            getWorld().removeObject(enemyShot);
+        }else if(!isTouching(EnemyProjectile.class)){
+            hitProjectile = false;
+        }
     }
     
     public void playerLife(){

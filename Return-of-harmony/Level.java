@@ -1,13 +1,13 @@
 import greenfoot.*; 
 
 public class Level extends World implements ScoreManager
-{
-    public int level = 1;
-    
+{ 
+    private int totalScore;
+    private int score;
     public Level()
     {    
         super(600, 400, 1); 
-        updateScore(0);
+        updateScore(score);
     }
     
     public void act(){
@@ -20,7 +20,8 @@ public class Level extends World implements ScoreManager
         }
     }
     
-    public void updateScore(int score){
+    public void updateScore(int score){ 
         showText("Score: " + score,500,25);
-    }
+        totalScore = score;
+    }  
 }

@@ -11,7 +11,7 @@ public class Tutorial extends Level
     {
         addObject(new GroundLevelTutorial(),207,325);
         addObject(new GroundLevelTutorial(),303,325);
-        
+
         addObject(new GroundLevelTutorial(),9,391);
         addObject(new GroundLevelTutorial(),105,391);
         addObject(new GroundLevelTutorial(),201,391);
@@ -27,5 +27,8 @@ public class Tutorial extends Level
         addObject(new Player(this),32,317);
 
         addObject(new ItemElement(),558,290);
+
+        addObject(new Enemy(),525,321);
+        addObject(new Enemy(),337,254);
     }
 }
