@@ -92,7 +92,7 @@ public class Player extends Actor
            animationLeft();
        }
        
-       if(Greenfoot.isKeyDown("Z") && jumping == false && getOneObjectAtOffset(0, SPEED, Ground.class) == null){
+       if(Greenfoot.isKeyDown("Z") && jumping == false){
            vSpeed = JUMP_HEIGHT; 
            jumping = true;
            animationJump();
@@ -184,13 +184,16 @@ public class Player extends Actor
             Greenfoot.setWorld(new Level1());
         }
         if(elementBronze != null){
+            score += 500;
             Greenfoot.setWorld(new Level2());
         }
         if(elementSilver != null){
+            score += 700;
             Greenfoot.setWorld(new Level3());
         }
         if(elementGold != null){
-            Greenfoot.setWorld(new Menu());
+            score += 1000;
+            Greenfoot.setWorld(new Score());
         }
     }
     

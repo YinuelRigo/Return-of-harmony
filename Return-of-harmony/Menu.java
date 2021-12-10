@@ -13,7 +13,7 @@ public class Menu extends World
     private static final int MENU_COUNT = 20;
     private int menuTimer;
     
-    SingboardArrow arrow = new SingboardArrow();
+    private SingboardArrow arrow = new SingboardArrow();
 
     public Menu()
     {    

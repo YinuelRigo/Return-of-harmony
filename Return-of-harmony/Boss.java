@@ -1,36 +1,48 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class Boss here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Boss extends Enemy
 {
     private int health = 20;
-    private boolean hitProjectile = false;
     
     GifImage BossGif = new GifImage("KS_idle.gif");
+    
+    private static final int PROJECTILE_RELOADING = 90;
+    private int shootingTimer;
+    private int shootingTimer2 = 45;
     public void act()
     {
         setImage(BossGif.getCurrentImage());
         hitProjectile();
+        shooting();
+        
+        shootingTimer --;
+        shootingTimer2 --;
     }
     
     public void hitProjectile(){
         Actor playerProyectile = getOneIntersectingObject(PlayerProjectile.class);
         
-        if(playerProyectile != null && !hitProjectile){
+        if(playerProyectile != null){
             health --;
-            hitProjectile = true;
             getWorld().removeObject(playerProyectile);
-        }else if(!isTouching(PlayerProjectile.class)){
-            hitProjectile = false;
         }
         
         if(health <= 0){
             getWorld().removeObject(this);
         }
     }
+    
+    public void shooting(){
+       if(shootingTimer <= 0){
+           shootingTimer = PROJECTILE_RELOADING;
+           
+           getWorld().addObject(new BossProjectile(), getX() - 56, getY() - 39);  
+       }
+       
+       if(shootingTimer2 <= 0){
+           shootingTimer2 = PROJECTILE_RELOADING;
+           
+           getWorld().addObject(new BossProjectile(), getX() - 56, getY() + 29); 
+       }
+    } 
 }

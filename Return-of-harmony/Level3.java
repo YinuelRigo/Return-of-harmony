@@ -28,7 +28,10 @@ public class Level3 extends Level
         addObject(new Player(this),45,133);
 
         addObject(new ItemElementGold(),557,313);
-        
+
         addObject(new Boss(),560,284);
+        
+        addObject(new ItemLife(),45,203);
+        addObject(new ItemLife(),45,183);
     }
 }

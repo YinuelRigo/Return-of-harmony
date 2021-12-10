@@ -18,14 +18,35 @@ public class Level1 extends Level
         addObject(new GroundLevelOne(),489,391);
         addObject(new GroundLevelOne(),585,391);
 
-        addObject(new Player(this),45,133);
-        
+        addObject(new GroundLevelOne(),48,145);
+        addObject(new GroundLevelOne(),144,145);
+        addObject(new GroundLevelOne(),240,145);
+        addObject(new GroundLevelOne(),336,145);
+        addObject(new GroundLevelOne(),432,145);
+
+        addObject(new Player(this),45,63);
+
+        addObject(new EnemyWalking(),460,76);
         addObject(new EnemyWalking(),520,323);
-    
-        addObject(new ItemElementBronze(),557,313);
-        
-        addObject(new ItemGem(),200,313);
-        addObject(new ItemGem(),250,313);
-        addObject(new ItemGem(),300,313);
+        addObject(new EnemyWalking(),320,323);
+        addObject(new EnemyShootingFly(),540,60);
+
+        addObject(new ItemElementBronze(),57,313);
+
+        addObject(new ItemGem(),250,68);
+        addObject(new ItemGem(),300,68);
+        addObject(new ItemGem(),350,68);
+        addObject(new ItemGem(),250,283);
+        addObject(new ItemGem(),300,283);
+        addObject(new ItemGem(),350,283);
+        addObject(new ItemGem(),275,253);
+        addObject(new ItemGem(),325,253);
+        addObject(new ItemGem(),541,115);
+        addObject(new ItemGem(),541,145);
+        addObject(new ItemGem(),541,175);
+        addObject(new ItemGem(),541,205);
+        addObject(new ItemGem(),541,235);
+
+        addObject(new ItemLife(),541,313);
     }
 }

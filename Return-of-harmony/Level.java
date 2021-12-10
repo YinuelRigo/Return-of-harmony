@@ -4,6 +4,7 @@ public class Level extends World implements ScoreManager
 { 
     private int totalScore;
     private int score;
+    
     public Level()
     {    
         super(600, 400, 1); 

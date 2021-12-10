@@ -6,6 +6,8 @@ public class Credits extends World
     {    
         super(600, 400, 1);
         prepareCredits();
+        showText("Created by Yinuel Rigoberto Garcia Hernandez",300,220);
+        showText("for the subject Object Oriented Programming ",300,250);
     }
     
     private void prepareCredits(){

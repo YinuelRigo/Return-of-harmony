@@ -13,7 +13,7 @@ public class LevelSelect extends World
     private static final int MENU_COUNT = 20;
     private int menuTimer;
 
-    SingboardArrowUp arrowUp = new SingboardArrowUp();
+    private SingboardArrowUp arrowUp = new SingboardArrowUp();
 
     public LevelSelect()
     {    
