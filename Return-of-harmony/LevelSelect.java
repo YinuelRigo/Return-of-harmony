@@ -9,12 +9,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class LevelSelect extends World
 {
     private int option=0;
-    
-    SingboardArrow arrow = new SingboardArrow();
-    /**
-     * Constructor for objects of class LevelSelect.
-     * 
-     */
+
+    private static final int MENU_COUNT = 20;
+    private int menuTimer;
+
+    SingboardArrowUp arrowUp = new SingboardArrowUp();
+
     public LevelSelect()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -25,34 +25,53 @@ public class LevelSelect extends World
     private void prepareLevels(){
         addObject(new SingboardGameTittle(),311,57);
         addObject(new SingboardLevels(),300,121);
+
+        addObject(arrowUp,115,350);
         
-        addObject(arrow,420,200);
+        addObject(new SingboardLevelSelectOne(), 100,250);
+        addObject(new SingboardLevelSelectTwo(), 300,250);
+        addObject(new SingboardLevelSelectThree(), 500,250);
     }
 
     public void act(){
-        if (Greenfoot.isKeyDown("LELF")) {option--;}
-        if (Greenfoot.isKeyDown("RIGHT")) {option++;}
-        
-        if(option>=3) option=0;
-        if(option<0) option=2;
-        
-        arrow.setLocation(420,200 + (option*50));
-        
+        handleKeys();
+        closeGame();
+    }
+
+    public void handleKeys(){
+        int limitUp = 0, limitDown = 3;
+
+        if (Greenfoot.isKeyDown("LEFT") && menuTimer <= 0) {
+            menuTimer = MENU_COUNT;
+            option--;
+        }
+        if (Greenfoot.isKeyDown("RIGHT") && menuTimer <= 0) {
+            menuTimer = MENU_COUNT;
+            option++;
+        }
+        menuTimer --;
+
+        if(option >= limitDown) option=0;
+        if(option < limitUp) option=2;
+
+        arrowUp.setLocation(115 + (option*200),350);
+
         if (Greenfoot.isKeyDown("SPACE") || Greenfoot.isKeyDown("ENTER")){
             switch(option){
-            case 0: //lEVEL1
-                Greenfoot.setWorld(new Level1());
-                break;
-            case 1: //LEVEL2
-                Greenfoot.setWorld(new Level2());
-                break;
-            case 2: //LEVEL3
-                Greenfoot.setWorld(new Level3());
-                break;
+                case 0:
+                    Greenfoot.setWorld(new Level1());
+                    break;
+                case 1:
+                    Greenfoot.setWorld(new Level2());
+                    break;
+                case 2:
+                    Greenfoot.setWorld(new Level3());
+                    break;
             }
         }
-        
-        
+    }
+
+    public void closeGame(){
         if (Greenfoot.isKeyDown("ESCAPE")){
             Greenfoot.setWorld(new Menu());
         }

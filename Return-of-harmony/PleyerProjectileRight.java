@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class PleyerProjectileRight extends PlayerProjectile
 {
-    private static final int speed = 10;
+    private static final int SPEED = 10;
     
     /**
      * Act - do whatever the PlayerProyectile wants to do. This method is called whenever
@@ -16,7 +16,7 @@ public class PleyerProjectileRight extends PlayerProjectile
      */
     public void act()
     {
-        move(speed);
+        move(SPEED);
         removeProjectile();
     }
 }
