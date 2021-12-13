@@ -5,7 +5,6 @@ public class Tutorial extends Level
     public Tutorial()
     {
         prepare();
-        showText("Level: Tutorial",300,25);
     }
     
     private void prepare()

@@ -1,11 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class LevelSelect here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class LevelSelect extends World
 {
     private int option=0;

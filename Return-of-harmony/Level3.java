@@ -12,7 +12,6 @@ public class Level3 extends Level
     public Level3()
     {    
         prepare();
-        showText("Level: " + 3,300,25);
     }
     
     private void prepare()
@@ -30,8 +29,9 @@ public class Level3 extends Level
         addObject(new ItemElementGold(),557,313);
 
         addObject(new Boss(),560,284);
-        
+
         addObject(new ItemLife(),45,203);
         addObject(new ItemLife(),45,183);
+        addObject(new ItemGem(),46,142);
     }
 }

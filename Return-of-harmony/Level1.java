@@ -5,7 +5,7 @@ public class Level1 extends Level
     public Level1()
     {    
         prepare();
-        showText("Level: " + 1,300,25);
+        music();
     }
     
     private void prepare()

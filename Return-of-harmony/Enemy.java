@@ -18,6 +18,7 @@ public class Enemy extends Actor
         
         if(health <= 0){
             getWorld().removeObject(this);
+            Greenfoot.playSound("Explosion.wav");
         }
     }
 }

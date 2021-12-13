@@ -12,7 +12,6 @@ public class Level2 extends Level
     public Level2()
     {    
         prepare();
-        showText("Level: " + 2,300,25);
     }
     
     private void prepare()
@@ -41,7 +40,8 @@ public class Level2 extends Level
         addObject(new EnemyShooting(),582,131);
         addObject(new EnemyShootingFly(),579,73);
         addObject(new EnemyShootingFly(),480,163);
-        
+
+        addObject(new ItemGem(),35,322);
         addObject(new ItemGem(),537,129);
         addObject(new ItemGem(),537,99);
         addObject(new ItemGem(),439,219);

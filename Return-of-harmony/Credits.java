@@ -1,4 +1,4 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
 public class Credits extends World
 {
@@ -6,13 +6,17 @@ public class Credits extends World
     {    
         super(600, 400, 1);
         prepareCredits();
-        showText("Created by Yinuel Rigoberto Garcia Hernandez",300,220);
-        showText("for the subject Object Oriented Programming ",300,250);
     }
     
     private void prepareCredits(){
         addObject(new SingboardGameTittle(),311,57);
         addObject(new SingboardCredits(),300,121);
+        GreenfootImage showText = getBackground();
+        Font adjustedFont = new Font(null,true, false, 22);
+                
+        showText.setColor(Color.BLACK);
+        showText.setFont(adjustedFont);
+        showText.drawString("Created by Yinuel Rigoberto Garcia Hernandez", 70, 250);
     }
     
     public void act(){
