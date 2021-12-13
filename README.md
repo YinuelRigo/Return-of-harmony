@@ -117,5 +117,4 @@ i) fantasía (simulando experiencias que uno no tiene en la vida real) ii) juego
 
 La diversión de este juego radica en el superar los distintos niveles con la mayor puntuación posible (Cada jugador tendrá que hacer un seguimiento de sus propias puntuaciones altas).
 
-
 ![Return of harmony drawio (1)](https://user-images.githubusercontent.com/89157854/145735013-169d2220-0885-4889-8024-996f00c3a32f.png)

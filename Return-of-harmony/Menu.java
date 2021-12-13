@@ -13,11 +13,14 @@ public class Menu extends World
     private static final int MENU_COUNT = 20;
     private int menuTimer;
     
-    SingboardArrow arrow = new SingboardArrow();
+    private SingboardArrow arrow = new SingboardArrow();
+    
+    private GreenfootSound backgroundMusic = new GreenfootSound("SongMenu.mp3");
 
     public Menu()
     {    
         super(600, 400, 1); 
+        music();
         prepareMenu();
     }
 
@@ -32,6 +35,11 @@ public class Menu extends World
     public void act(){
         handleKeys();
         closeGame();
+    }
+    
+    public void music(){
+        backgroundMusic.setVolume(60);
+        backgroundMusic.play();
     }
     
     public void handleKeys(){
@@ -64,6 +72,7 @@ public class Menu extends World
                 Greenfoot.setWorld(new Credits());
                 break;
             }
+            backgroundMusic.stop();
         }
     }
     

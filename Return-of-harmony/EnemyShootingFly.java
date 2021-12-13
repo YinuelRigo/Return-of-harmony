@@ -8,12 +8,41 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class EnemyShootingFly extends Enemy
 {
-    /**
-     * Act - do whatever the EnemyShootingFly wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    private String []images;
+    private int frame = 0;
+    
+    private static final int PROJECTILE_RELOADING = 90;
+    private int shootingTimer;
+    
     public void act()
     {
-        // Add your action code here.
+        animationShot();
+        shooting();
+        hitProjectile();
+        
+        shootingTimer --;
     }
+    
+    public void animationShot(){
+        images = new String[]{
+            "images/CH_Fly_3.png",
+            "images/CH_Fly_1.png",
+            "images/CH_Fly_2.png"
+        };
+        
+        setImage(images[frame/5]);
+            
+        if(frame == 10){
+             frame=0;
+        }
+    
+        frame ++;
+    }
+    
+    public void shooting(){
+        if(shootingTimer <= 0){
+           shootingTimer = PROJECTILE_RELOADING;
+           getWorld().addObject(new EnemyProjectile(), getX() - 27, getY() - 22); 
+       }
+    }  
 }

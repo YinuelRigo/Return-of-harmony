@@ -1,6 +1,5 @@
 #BlueJ class context
 comment0.target=Player
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Player\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=scoreManager
 comment1.target=Player(ScoreManager)
 comment10.params=
@@ -8,7 +7,9 @@ comment10.target=void\ pickUpItems()
 comment11.params=
 comment11.target=void\ loseHealth()
 comment12.params=
-comment12.target=void\ playerLife()
+comment12.target=void\ catchScore()
+comment13.params=
+comment13.target=void\ playerLife()
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
@@ -25,4 +26,4 @@ comment8.params=
 comment8.target=void\ animationRight()
 comment9.params=
 comment9.target=void\ animationLeft()
-numComments=13
+numComments=14

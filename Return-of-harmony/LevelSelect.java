@@ -1,11 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class LevelSelect here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class LevelSelect extends World
 {
     private int option=0;
@@ -13,7 +7,7 @@ public class LevelSelect extends World
     private static final int MENU_COUNT = 20;
     private int menuTimer;
 
-    SingboardArrowUp arrowUp = new SingboardArrowUp();
+    private SingboardArrowUp arrowUp = new SingboardArrowUp();
 
     public LevelSelect()
     {    

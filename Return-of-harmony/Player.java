@@ -1,12 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class Player here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-
 public class Player extends Actor
 {
     private static final int SPEED = 3;
@@ -28,10 +21,13 @@ public class Player extends Actor
     private String []images;
     private int frame = 0;
     
-    private int score = 0;
+    private static int score = 0;
     private ScoreManager scoreManager;  
     
     private boolean hitProjectile = false;
+    
+    private int timer = 60;
+    private int time = 60;
     
     Player(ScoreManager scoreManager){
         this.scoreManager = scoreManager; 
@@ -92,19 +88,22 @@ public class Player extends Actor
            animationLeft();
        }
        
-       if(Greenfoot.isKeyDown("Z") && jumping == false && getOneObjectAtOffset(0, SPEED, Ground.class) == null){
+       if(Greenfoot.isKeyDown("Z") && jumping == false){
            vSpeed = JUMP_HEIGHT; 
            jumping = true;
            animationJump();
            fall();
+           Greenfoot.playSound("Jump.wav");
        }
        
        if(Greenfoot.isKeyDown("X") && direction == 1 && shootingTimer <= 0){
            shootingTimer = PROJECTILE_RELOADING;
            getWorld().addObject(new PleyerProjectileRight(), getX() + 27, getY() - 22);
+           Greenfoot.playSound("Shoot.wav");
        }else if(Greenfoot.isKeyDown("X") && direction == -1 && shootingTimer <= 0){
            shootingTimer = PROJECTILE_RELOADING;
-           getWorld().addObject(new PlayerProjectileLeft(), getX() - 27, getY() - 22); 
+           getWorld().addObject(new PlayerProjectileLeft(), getX() - 27, getY() - 22);
+           Greenfoot.playSound("Shoot.wav");
        }
     }
     
@@ -158,7 +157,6 @@ public class Player extends Actor
         }
     } 
 
-    
     public void pickUpItems(){        
         Actor item = getOneIntersectingObject(Item.class);
         Actor gem = getOneIntersectingObject(ItemGem.class);
@@ -172,11 +170,13 @@ public class Player extends Actor
             getWorld().removeObject(item);
         }
         if(gem != null){
+            Greenfoot.playSound("PickUp.wav");
             score += 100;
             World world =  getWorld();
             scoreManager.updateScore(score);
         }
         if(heart != null){
+            Greenfoot.playSound("PickUp2.wav");
             health ++;
             drawHearths = true;
         }
@@ -184,13 +184,20 @@ public class Player extends Actor
             Greenfoot.setWorld(new Level1());
         }
         if(elementBronze != null){
+            Greenfoot.playSound("PickUp3.wav");
+            score += 500;
             Greenfoot.setWorld(new Level2());
         }
         if(elementSilver != null){
+            Greenfoot.playSound("PickUp3.wav");
+            score += 700;
             Greenfoot.setWorld(new Level3());
         }
         if(elementGold != null){
-            Greenfoot.setWorld(new Menu());
+            Greenfoot.playSound("PickUp3.wav");
+            score += 1000;
+            catchScore();
+            Greenfoot.setWorld(new Score());
         }
     }
     
@@ -202,13 +209,14 @@ public class Player extends Actor
         if(enemy != null && healthTimer <= 0 || enemyShot != null && healthTimer <= 0 || bossShot != null && healthTimer <= 0){
             healthTimer = INVULNERABILITY;
             health --;
-            
+            Greenfoot.playSound("Damage.wav");
             getWorld().removeObjects(getWorld().getObjects(Health.class));
             drawHearths = true;
         }
         
         if(health == 0){
-            Greenfoot.setWorld(new Menu());
+            catchScore();
+            Greenfoot.setWorld(new Score());
         }
         
         if(enemyShot != null && !hitProjectile || bossShot != null && !hitProjectile){
@@ -219,31 +227,25 @@ public class Player extends Actor
         }
     }
     
+    public void catchScore(){
+        String name = Greenfoot.ask("Insert Name");
+        Record record = new Record(name,score);
+        RecordManager recordManager = new RecordManager(10, "RecordFile.txt");
+        
+        recordManager.save(record);
+    }
+    
     public void playerLife(){
-        if(health == 1 && drawHearths == true){   
-            getWorld().addObject(new Health(), 21, 21);
-        } else if(health == 2 && drawHearths == true){   
-            getWorld().addObject(new Health(), 21, 21);
-            getWorld().addObject(new Health(), 51, 21);
-        }else if(health == 3 && drawHearths == true){   
-            getWorld().addObject(new Health(), 21, 21);
-            getWorld().addObject(new Health(), 51, 21);
-            getWorld().addObject(new Health(), 81, 21);
-        } else if(health == 4 && drawHearths == true){   
-            getWorld().addObject(new Health(), 21, 21);
-            getWorld().addObject(new Health(), 51, 21);
-            getWorld().addObject(new Health(), 81, 21);
-            getWorld().addObject(new Health(), 111, 21);
-        }else if(health == 5 && drawHearths == true){   
-            getWorld().addObject(new Health(), 21, 21);
-            getWorld().addObject(new Health(), 51, 21);
-            getWorld().addObject(new Health(), 81, 21);
-            getWorld().addObject(new Health(), 111, 21);
-            getWorld().addObject(new Health(), 141, 21);
+        int y = 21;
+        
+        if(health >= 1 && health <=5 && drawHearths == true){
+            for(int i = 0;i < health;i++){
+                getWorld().addObject(new Health(), y, 21);
+                y +=30;
+            }
         }else if(health <=6 && drawHearths == true){
             health = 5; 
         }
         drawHearths = false;
     }
-    
 }
